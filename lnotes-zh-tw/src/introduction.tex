@@ -1,0 +1,112 @@
+\chapter{簡介}
+
+\begin{quotation}
+滾滾長江東逝水，浪花淘盡英雄。是非成敗轉頭空。青山依舊在，幾度夕陽紅。
+
+白髮漁樵江渚上，慣看秋月春風。一壺濁酒喜相逢。古今多少事，都付笑談中。
+\begin{flushright}
+---~楊慎《臨江仙》
+\end{flushright}
+\end{quotation}
+
+\section{歷史回顧}
+
+\LaTeX~是一種面向數學和其它科技文檔的電子排版系統。一般人們提到的~\LaTeX~是一個總稱，它包括~\TeX、\LaTeX、\AmS-\LaTeX~等\footnote{一般認為~\TeX~是一種引擎，\LaTeX~是一種格式，而~\AmS-\LaTeX~等是宏集。此處目的是簡介，故不展開討論。}。
+
+\TeX~的開發始於~1977~年~5~月，Donald E. Knuth\footnote{斯坦福大學計算機系教授，已退休。}開發它的初衷是用於《The Art of Computer Programming》的排版。1962~年~Knuth~開始寫一本關於編譯器設計的書，原計劃是~12~章的單行本。不久~Knuth~覺得此書涉及的領域應該擴大，於是越寫越多，如滔滔江水連綿不絕，又如黃河氾濫一發不可收拾。1965~年完成的初稿居然有~3000~頁，全是手寫的！據出版商估計，這些手稿印刷出來需要~2000~頁，出書的計劃只好改為七卷，每卷一或兩章。1976~年~Knuth~改寫第二卷的第二版時，很鬱悶地發現第一卷的鉛版不見了，而當時電子排版剛剛興起，質量還差強人意。於是~Knuth~仰天長嘯：「我要扼住命運的咽喉」，決定自己開發一個全新的系統，這就是~\TeX。
+
+1978~年~\TeX~第一版發佈後好評如潮，Knuth~趁熱打鐵在~1982~年發佈了第二版。人們現在使用的~\TeX~基本就是第二版，中間只有一些小的改進。1990~年~\TeX~ v3.0~發佈後，Knuth~宣佈除了修正~bug~外停止~\TeX~的開發，因為他要集中精力完成那本巨著的後幾卷\footnote{已出版的前三卷是：《Fundamental Algorithms》、《Seminumerical Algorithms》、《Sorting and Searching》；第四卷《Combinatorial Algorithms》和第五卷《Syntactic Algorithms》正在寫作中，預計~2015~年出版；第六卷《Theory of Context-free Languages》和第七卷《Compiler Techniques》尚未安排上工作日程。}。此後每發佈一個修正版，版本號就增加一位小數，使得它趨近於$\pi$（目前是~3.141592）。Knuth~希望將來他離世時，\TeX~的版本號永遠固定下來，從此人們不再改動他的代碼。他開發的另一個軟件~\MF~也作類似處理，它的版本號趨近於$e$，目前是~2.71828。
+
+\TeX~是一種語言也是一個宏處理器，這使得它很好很強大，但是它同時又很繁瑣，讓人難以接近。因此~Knuth~提供了一個對~\TeX~進行了封裝的宏集~Plain \TeX，裡面有一些高級命令，有了它最終用戶就無須直接面對枯燥無味的~\TeX。
+
+然而~Plain \TeX~還是不夠高級，所以~Leslie Lamport\footnote{現供職於微軟研究院。}在~80~年代初期開發了另一個基於~\TeX~的宏集~\LaTeX。1992~年~\LaTeX~ v2.09~發佈後，Lamport~退居二線，之後的開發活動由~Frank Mittelbach~領導的~The LaTeX Team~接管。此小組發佈的最後版本是~1994~年的~\LaTeXe，他們同時還在進行~\LaTeX~3~的開發，只是正式版看起來遙遙無期。
+
+起初，美國數學學會（American Mathematical Society，AMS）看著\TeX~是好的，就派~Michael Spivak~寫了~\AmS-\TeX，這項基於~Plain \TeX~的開發活動進行了兩年（1983--1985）。後來與時俱進的~AMS~又看著~\LaTeX~是好的，就想轉移陣地，但是他們的字體遇到了麻煩。恰好~Mittelbach~和~Rainer Schöpf（後者也是~LaTeX Team~的成員）剛剛發佈了~New Font Selection Scheme for \LaTeX（NFSS），AMS~看著還不錯，就拜託他們把~AMSFonts加入~\LaTeX，繼而在~1989~年請他們開發~\AmS-\LaTeX。\AmS-\LaTeX~發佈於~1990~年，之後它被整合為~\AmS~宏包，像其它宏包一樣可以直接運行於~\LaTeX。
+
+\section{優點和缺點}
+當前的文字處理系統大致可以分為兩種：標記語言（Markup Language）式的，比如\LaTeX；所見即所得（WYSIWYG）式的，比如~MS Word\footnote{其實~Word~也有自己的標記語言域代碼（field code），只是一般用戶不瞭解。}。
+
+一般而言，\LaTeX~相對於所見即所得系統有如下優點：
+\begin{itemize}
+    \item 高質量\ 它製作的版面看起來更專業，數學公式尤其賞心悅目。
+    \item 結構化\ 它的文檔結構清晰。
+    \item 批處理\ 它的源文件是文本文件，便於批處理，雖然解釋（parse）源文件可能很費勁。
+    \item 跨平台\ 它幾乎可以運行於所有電腦硬件和作業系統平台。
+    \item 免費\ 多數~\LaTeX~軟件都是免費的，雖然也有一些商業軟件。
+\end{itemize}
+
+相應地，\LaTeX~的工作流程、設計原則，資源的缺乏，以及開發人員的歷史局限性等種種原因也導致了一些缺陷：
+\begin{itemize}
+    \item 製作過程繁瑣，有時需要反覆編譯，不能直接或實時看到結果。
+    \item 宏包魚龍混雜，水準參差不齊，風格不夠統一。
+    \item 排版風格比較統一，但因而缺乏靈活性。
+    \item 用戶支持不夠好，文檔不完善。
+    \item 對國際語言和字體的支持很差。
+\end{itemize}
+
+拋開~MS Word~不談，即使跟同為標記語言的~HTML/Web~系統相比，\LaTeX~也有一些不足之處。比如~Web~瀏覽器對~HTML~內容的渲染（render）比~DVI~瀏覽器對~\LaTeX~內容的渲染要快上許多，基本上可以算是實時。雖然~HTML~內容可能沒有~LaTeX~那麼複雜，但是~DVI~畢竟是已經被~\LaTeX~編譯過的格式。
+
+還有一點令人困惑的是，有一部分~\LaTeX~陣營的人士習慣於稱對方為「邪惡的」或「出賣靈魂的」，如果昂貴的微軟系統應當為人詬病，那麼更貴的蘋果係統為何卻被人追捧？
+
+2000~年有記者在採訪~Lamport~時問：「為什麼當前沒有高質量的所見即所得排版系統？」他回答道：「門檻太高了，一個所見即所得系統要做到~\LaTeX~當前的水平，工作量之大不是單槍匹馬所能完成\footnote{\TeX/\LaTeX~也不單單是那幾個大腕兒完成的，他們背後還有眾多默默無聞的小人物，比如當年~Knuth~手下的大批學生。此所謂一將功成萬骨枯。}。微軟那樣的大公司可以做，但是市場太小了。我偶爾也會想加入「Dark Side」，讓微軟給我一組人馬來開發一個這樣的系統。」（包老師註：他果然於次年加入微軟。）
+
+竊以為這兩大陣營其實是蘿蔔青菜的關係，與其抱殘守缺、互相攻訐，不如各取所需；甚至可以捐棄前嫌、取長補短，共建和諧社會。
+
+\section{軟件準備}
+\label{sec:latexsoft}
+
+\LaTeX~是一個軟件系統，同時也是一套標準。遵照這些標準，實現了（implement）所要求功能的軟件集合被稱為發行版（distribution）。與此類似的例子有~Java~和~Linux，比如SUN、IBM、BEA~等公司都有自己的~Java~虛擬機（JVM），它們都被稱作~Java~的實現；而Linux~有~Red Hat/~Fedora、Ubuntu、SuSE~等眾多的發行版。
+
+\begin{table}[htbp]
+\caption{\LaTeX~發行版與編輯器}
+\label{tab:latexsoft}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & \href{http://www.miktex.org/}{MikTeX} & \href{http://www.toolscenter.org/}{TeXnicCenter}、\href{http://www.winedt.com/}{WinEdt} \\
+    Unix/Linux & \href{http://www.tug.org/texlive/}{TeX Live} & \href{http://www.gnu.org/software/emacs/emacs.html}{Emacs}、\href{http://vim.sourceforge.net/}{vim}、\href{http://kile.sourceforge.net/}{Kile} \\
+    Mac OS & \href{http://www.tug.org/mactex/}{MacTeX} & \href{http://www.uoregon.edu/~koch/texshop/}{TeXShop} \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\LaTeX~發行版只提供了一個~\LaTeX~後台處理機制，用戶還需要一個前台編輯器來編輯它的源文件。常用的~\LaTeX~發行版和編輯器見\fref{tab:latexsoft}。在使用~\LaTeX~的過程中可能還需要其它一些軟件，將在後面相關章節中分別介紹。
+
+\section{學習方法}
+\begin{quotation}
+在科學上沒有平坦的大道，只有那些不畏勞苦沿著陡峭山路攀登的人，才有希望達到光輝的頂點。
+\begin{flushright}
+---~卡爾‧馬克思
+\end{flushright}
+\end{quotation}
+
+\begin{quotation}
+無他，唯手熟爾。
+\begin{flushright}
+---~賣油翁
+\end{flushright}
+\end{quotation}
+
+\begin{quotation}
+用心。
+\begin{flushright}
+---~斯蒂芬‧周
+\end{flushright}
+\end{quotation}
+
+限於篇幅和水平，本文只能提供一個概覽外加一些八卦。比較嚴謹的入門資料有~Tobias Oetiker~的《A (Not So) Short Introduction to \LaTeXe》\citep{Oetiker_2008}（簡稱lshort）；若想對~\LaTeX~有更深入全面的瞭解，可以拜讀~Mittelbach~的《The \LaTeX~ Companion》\citep{Mittelbach_2004}。
+
+中文資料可參考李果正的《大家來學~\LaTeX》\citep{Lee_2004}，lshort~有吳凌雲等人翻譯的中文版本\footnote{此譯本首發於~CTeX~論壇，但是需要註冊才能看見鏈接，所以請讀者自行搜索。}。
+
+\href{http://www.ctan.org/}{Comprehensive TeX Archive Network}（CTAN）和~\href{http://www.tug.org/}{TeX Users Group}~（TUG）提供了權威、豐富的資源。
+
+\href{http://www.text.ac.uk/}{英國TUG}~和~\href{http://www.ctex.org}{CTeX}~分別提供了常見問題集（FAQ）\citep{UKTUG_FAQ,CTeX_FAQ}，一般問題多會在這裡找到答案。
+
+中文~\TeX~論壇有\href{http://www.smth.org/bbsdoc.php?board=TeX}{水木清華~BBS TeX~版}、\href{http://bbs.ctex.org/}{CTeX~論壇}。
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+

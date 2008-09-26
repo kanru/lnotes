@@ -1,0 +1,492 @@
+\chapter{入門}
+
+\section{Hello, World!}
+\label{sec:hello_world}
+把下面例子用編輯器保存為~\verb|hello_world.tex|，這就是一個最簡單的~\LaTeX~源文件。
+
+\begin{code}
+%hello_world.tex
+\documentclass{article}
+\begin{document}
+    Hello, World!
+\end{document}
+\end{code}
+
+有了源文件，我們可以在命令行把它編譯成~DVI~文件（DVI~格式見\ref{sec:dvi}小節）。此命令知道輸入的是~\LaTeX~源文件，所以這裡的~\verb|.tex|~後綴可以省略。以後的示例中可以省略的後綴都用~\verb|()|~標出，不再特別聲明。
+\begin{code}
+latex hello_world(.tex)
+\end{code}
+
+如果係統顯示類似下面的錯誤信息，請檢查源文件是否有拼寫錯誤。\verb|.log|~文件裡有更詳細的編譯信息。
+\begin{code}
+! LaTeX Error:
+...
+! Emergency stop.
+...
+No pages of output.
+Transcript written on hello_world.log.
+\end{code}
+
+如果編譯成功，系統會報出類似下面的信息：
+\begin{code}
+Output written on hello_world.dvi (1 page, 232 bytes).
+Transcript written on hello_world.log.
+\end{code}
+
+每種~\LaTeX~發行包附帶不同的~DVI~瀏覽器，比如~MiKTeX~的是~yap。
+\begin{code}
+yap hello_world(.dvi)
+\end{code}
+
+\section{格式及其轉換}
+\subsection{頁面描述語言}
+\label{sec:pdl}
+頁面描述語言（Page Description Language，PDL）是一種在較高層次上描述實際輸出結果的語言。本文只討論其中三種與~\LaTeX~緊密相關的格式：DVI、PostScript、PDF。
+
+\subsubsection{PostScript}
+最早的打印機只用於打印字符，它使用的硬字符與打字機類似。後來出現的點陣（dot matrix）打字機用一系列的點來「畫」出字符，當然它也可以畫出圖形。當時向量圖的打印只能由繪圖儀（plotter）來完成。
+
+1976~年，施樂（Xerox）推出了首台激光打印機，它結合了點陣打印機和繪圖儀的優點，可以同時打印高質量的圖形和文字。
+
+同一時期，John Warnock~也在醞釀一種類似於~Forth~的圖形設計語言，也就是後來的~PostScript（PS），當時他正在舊金山一家電腦圖形公司~Evans \& Sutherland~工作。1978~年老闆想讓~Warnock~搬到位於猶他州的總部，他不想搬家就跳槽到了施樂。
+
+Warnock~和~Martin Newell~開發了新的圖形系統~JaM（John and Martin），它後來被合併到施樂的打印機驅動程序~InterPress~中去。這兩位還開發過另一個系統~MaJ。
+
+1982~年，Warnock~和施樂研究中心圖形實驗室主任~Chuck Geschke~一起離開施樂，成立了~Adobe~公司。Newell~後來也加入了~Adobe。
+
+1984~年~Adobe~發佈~PS~後不久，Steve Jobs~跑來參觀，並建議用它來驅動激光打印機。次年，武裝著~PS~驅動的~Apple LaserWriter~橫空出世，打響了~80~年代中期桌面出版革命的第一槍。
+
+90~年代中後期，廉價噴墨打印機的流行使得~PS~逐漸式微，因為~PS~驅動對它們畢竟是一個成本負擔。
+
+\subsubsection{PDF}
+1993~年，Adobe~推出了一種開放的格式：Portable Document Format（PDF），它於~2007~年成為~ISO 32000~標準。除了開放，PDF~比起~PS~還有一些其它優勢：
+\begin{itemize}
+    \item PDF~基本上是~PS~的一個子集，因此更輕便。
+    \item PDF~可以嵌入更先進的字體，具體見\ref{sec:font}節。
+    \item PDF~支持嵌入亂七八糟的東東，比如動畫。
+    \item PDF~支持透明圖形。
+\end{itemize}
+
+PDF~雖然擁有上述優勢，起初它的推廣卻並不順利，因為其讀寫工具~Acrobat~太貴。Adobe~很快推出了免費的~Acrobat Reader（後更名為~Adobe Reader），並不斷改進~PDF，終於使它超越了曾經的事實標準~PS，成為網絡時代電子文檔的新標準。
+
+\subsubsection{DVI}
+\label{sec:dvi}
+Knuth~最初設計的~\TeX~只能用於~XGP~打印機，這台打印機本身還需要一台~PDP-6~主機為它服務。1979~年，David Fuchs\footnote{Fuchs~本科畢業於普林斯頓，1978~年進入斯坦福攻讀博士學位。他不是~Knuth~的學生，但是完成過一些~\TeX~的開發任務。他在~Adobe~工作過一段時間，現在混入了娛樂圈，擔任過電影《Red Diaper Baby》和《Haiku Tunnel》的製片人。}提出把~\TeX~的輸出改為設備無關的格式，也就是~Device Independent format（DVI）。
+
+DVI~只是一種中間格式，用戶還需要另外的處理程序（driver）把它轉換為其它格式，比如~PS~或~PDF~，甚至~PNG、SVG~等。DVI~不能嵌入字體和圖形，PS~和~PDF~可以選擇是否嵌入字體。
+
+\subsubsection{Ghostscript}
+\label{sec:ghostscript}
+PS~輸出時需要一個解釋器（Raster Image Processor，RIP）來把它轉換為點陣圖形。RIP~可以是軟件，也可以是固件（firmware）或硬件\footnote{固件~RIP~在打印機內置處理器上運行，硬件~RIP~常見於高端打印設備。}。
+
+Ghostscript~是一個基於~RIP~的軟件包，除了~RIP~它還有一些其它功能，比如處理~EPS，把~PS~轉換為~PDF~等。Ghostscript~已經被移植到~Windows、Unix/Linux、Mac OS~等多種作業系統，和它匹配的前端圖形用戶界面（GUI）有\href{http://pages.cs.wisc.edu/~ghost/}{GSview、Ghostview、gv}等。
+
+\subsection{格式轉換}
+\label{sec:convert_format}
+DVI、PS、PDF~等格式的的轉換關係如\Fref{fig:convert_format}所示。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+    \node[box] (tex) {.tex};
+    \node[box] (dvi) [right=5 of tex] {.dvi};
+    \node[box] (pdf) [right=6 of dvi] {.pdf};
+    \node[box] (ps) [above=3 of pdf] {.ps};
+    \path (tex) edge [arrow] node[auto] {latex} (dvi)
+        (dvi) edge [arrow] node[auto] {dvipdfm} (pdf)
+        (dvi.north) [arrow,draw] to node[above,sloped] {dvips} (ps.west)
+        (ps) edge [arrow] node[right] {ps2pdf} (pdf)
+        (tex) edge [arrow,bloop] (pdf);
+    \node [below=.7 of dvi] {pdflatex};
+\end{tikzpicture}
+\caption{格式轉換}
+\label{fig:convert_format}
+\end{figure}
+
+最早的~driver~是~\verb|dvips|，它把~DVI~轉換為~PS。\verb|dvipdf|~把~DVI~轉為~PDF，它後來被~\verb|dvipdfm|~所取代；\verb|dvipdfm|~主要用於處理單字節字符，1999~年之後停止開發；在~\verb|dvipdfm|~基礎上發展來的~\verb|dvipdfmx|~可以處理多字節編碼（字符編碼詳見\ref{sec:encoding}節）。
+
+pdf\TeX~是一種特殊的driver，它跳過~DVI，直接用~\TeX~源文件生成~PDF。基於~pdf\TeX~的~pdf\LaTeX~則把\LaTeX~源文件轉為~PDF。
+
+包老師傾向於~\verb|dvipdfmx|，因為它對圖形格式的兼容性較好，而且擅長處理中文。
+
+得到~DVI~後，我們可以在控制台用以下命令把它轉為~PDF。
+\begin{code}
+dvipdfm hello_world(.dvi)
+\end{code}
+
+我們也可以把它轉為~PS，接著用~Ghostscript~的一個命令行程序把它轉換為~PDF，注意第二個命令需要~\verb|.ps|~後綴。一般情況下不推薦這種方法，因為它多了個步驟。
+\begin{code}
+dvips hello_world(.dvi)
+ps2pdf hello_world.ps
+\end{code}
+
+pdf\LaTeX~用法如下。
+\begin{code}
+pdflatex hello_world(.tex)
+\end{code}
+
+\section{\LaTeX~語句}
+\LaTeX~源文件的每一行稱作一條語句（statement），語句可以分三種：命令（command）、數據（data）和註釋（comment）。
+
+命令分為兩種：普通命令和環境（environment）。普通命令以\verb|\|~起始，大多隻有一行；而環境包含一對起始聲明和結尾聲明，用於多行的場合。命令和環境可以互相嵌套。
+
+數據就是普通內容。註釋語句以~\verb|%|~起始，它在編譯過程中被忽略。
+
+例如在\ref{sec:hello_world}節例1中，第一行是註釋，第二行是普通命令；第三、五行是環境的起始和結尾聲明；第四行是數據。
+
+\section{文檔結構}
+\subsection{文檔類、序言、正文}
+\LaTeX~源文件的結構分三大部分，依次為：文檔類聲明、序言（可選）、正文。
+
+文檔類聲明用來指定文檔的類型；序言（preamble）用來完成一些特殊任務，比如引入宏包，定義命令，設置環境等；文檔的實際內容則放在正文部分。這裡的正文指得是\verb|\begin{document}|和\verb|\end|~\verb|{document}|之間的部分，和通常人們心目中的「正文」概念有所出入。
+
+這三部分的基本語法如下：
+\begin{code}
+\documentclass[options]{class}  %文檔類聲明
+\usepackage[options]{package}   %引入宏包
+...
+\begin{document}                %正文
+...
+\end{document}
+\end{code}
+
+常用的文檔類（documentclass）有三種：\verb|article、report、book|，它們的常用選項見\fref{tab:class_options}。
+
+\begin{table}[htbp]
+\centering
+\caption{文檔類常用選項}
+\label{tab:class_options}
+\begin{tabularx}{350pt}{lX}
+    \toprule
+    10pt, 11pt, 12pt & 正文字號，預設10pt。\LaTeX~會根據正文字號選擇標題、上下標等的字號。\\
+    letterpaper, a4paper & 紙張尺寸，預設是~letter。\\
+    notitlepage, titlepage & 標題後是否另起新頁。article~預設~notitlepage，report~和~book~預設有~titlepage。\\
+    onecolumn, twocolumn & 欄數，預設單欄。\\
+    oneside, twoside & 單面雙面。article~和~report~預設單面，book~預設雙面。\\
+    landscape & 打印方向橫向，預設縱向。\\
+    openany, openright & 此選項只用於~report~和~book。report~預設~openany~，book~預設~openright。\\
+    draft & 草稿模式。有時某些行排得過滿，draft~模式可以在它們右邊標上粗黑線提醒用戶。\\
+    \bottomrule
+\end{tabularx}
+\end{table}
+
+\LaTeX~的核心只提供基本的功能，系統以宏包（package）的形式提供附加功能或增強原有功能。其它一些編程語言也有類似的模塊化機制，比如~C/C++~的~\verb|#include|，Java~的~\verb|import|。
+
+\subsection{標題、摘要、章節}
+
+
+一份文檔正文部分的開頭通常有標題、作者、摘要等信息，之後是章節等層次結構，內容則散佈於層次結構之間。
+
+標題、作者、日期等命令如下，注意\verb|\maketitle|~命令要放在最後。
+\begin{code}
+\title{標題}
+\author{作者}
+\today
+\maketitle
+\end{code}
+
+摘要環境用法如下：
+\begin{code}
+\begin{abstract}
+...
+\end{abstract}
+\end{code}
+
+常用的層次結構命令如下，
+\begin{code}
+\chapter{...}
+\section{...}
+\subsection{...}
+\subsubsection{...}
+\end{code}
+
+每個高級層次可以包含若干低級層次。\verb|article|~中沒有~\verb|chapter|，而~\verb|report|~和~\verb|book|~則支持上面所有層次。
+
+\subsection{目錄}
+
+我們可以用~\verb|\tableofcontents|~命令來生成整個文檔的目錄，\LaTeX~會自動設定目錄包含的章節層次，也可以用~\verb|\setcounter|~命令來指定目錄層次深度。
+\begin{code}
+\tableofcontents
+\setcounter{tocdepth}{2}
+\end{code}
+
+如果不想讓某個章節標題出現在目錄中，可以使用以下帶~\verb|*|~的命令來聲明章節。
+\begin{code}
+\chapter*{...}
+\section*{...}
+\subsection*{...}
+\end{code}
+
+類似地，我們也可以用以下命令生成插圖和表格的目錄，插圖和表格功能將在後面章節中介紹。
+
+\begin{code}
+\listoffigures
+\listoftables
+\end{code}
+
+當章節或圖表等結構發生變化時，我們需要執行兩遍編譯命令以獲得正確結果。\LaTeX~之所以設計成這樣可能是因為當時的電腦內存容量有限。
+
+\section{文字排版}
+\subsection{字符輸入}
+文檔中可以輸入的內容大致可以分為：普通字符、控制符、特殊符號、注音符號、預定義字符串等。而這些內容有兩種輸入模式：文本模式（預設）和數學模式，普通的行間（inline）數學模式用\verb|\$...\$|來表示。
+
+\LaTeX~中有些字符（例如~\verb|# $ % ^ & _ { } ~ \|~等）被用作特殊的控制符，所以不能直接輸入，多數需要在前面加個~\verb|\|。而~\verb|\|~本身則要用~\verb|\textbackslash|~命令來輸入，因為~\verb|\\|~被用作了換行指令。很奇怪為什麼不用~C~語言的~\verb|\n|，也許是因為~\TeX~的編程語言是~Pascal。
+
+\begin{code}
+\# \$ \% \^{} \& \_ \{ \} \~{} \textbackslash
+\end{code}
+
+\Fref{tab:symbol}~提供了一些符號的輸入方法示例，完整的符號列表見~Scott Pakin的《The Comprehensive \LaTeX~ Symbol List》\citep{Pakin_2008}。
+
+\begin{table}[htbp]
+\centering
+\caption{一些符號和預定義字符串}
+\label{tab:symbol}
+\begin{tabular}{llllll}
+    \toprule
+    \multicolumn{2}{c}{特殊符號} & \multicolumn{2}{c}{注音符號} & 
+    \multicolumn{2}{c}{預定義字符串} \\
+    \cmidrule(lr){1-2} \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+    \textcopyright  & \verb|\textcopyright|  & \aa & \verb|\aa| & 
+        \today & \verb|\today| \\
+    \textregistered & \verb|\textregistered| & \AA & \verb|\AA| & 
+        \TeX & \verb|\TeX| \\
+    $^\circ$C       & \verb|$^\circ$C|       & \ae & \verb|\ae| & 
+        \LaTeX & \verb|\LaTeX| \\
+    \textyen        & \verb|\textyen|        & \o  & \verb|\o| &
+        \LaTeXe & \verb|\LaTeXe| \\
+    \pounds         & \verb|\pounds|         & \"o & \verb|\"o| &
+        \MF & \verb|\MF| \\
+    \texteuro       & \verb|\texteuro|       & \^o & \verb|\^o| &
+        \MP & \verb|\MP| \\
+    \dots           & \verb|\dots|           & \~o & \verb|\~o| & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{換行、換頁、斷字}
+通常~\LaTeX~會自動換行、換頁。用戶也可以用~\verb|\\|~或~\verb|\newline|~來強制換行；用~\verb|\newpage|~來強制換頁。
+
+一般情況下~\LaTeX~會儘量均勻地斷字（Hyphenate），使得每一行的字間距分佈整齊。但有時我們也需要顯式指明斷字位置，比如下例就指明~BASIC~這個詞不能斷開，而~blar-blar-blar~可以在-處斷開。
+\begin{code}
+\hyphenation{BASIC blar-blar-blar}
+\end{code}
+
+\subsection{字樣、字號}
+
+\LaTeX~會自動調整正文、標題、章節、上下標、腳註等的字樣\footnote{關於字樣詳見\ref{sec:typeface}節}、字號。我們也可以用\fref{tab:typeface_command}中的命令來設置字樣；用\fref{tab:fontsize_command}中的命令來設置相對字號，比如正文字號是~10pt、11pt、12pt~時，tiny的字號就分別是~5pt、6pt、6pt。
+
+\LaTeX~有一個特別的字樣強調命令：\verb|\emph|，它在不同字樣和裝飾環境下有不同效果。比如周圍文字是正體，它就是斜體；反之它就是正體。
+
+\begin{table}[hbtp]
+\centering
+\caption{字樣命令}
+\label{tab:typeface_command}
+\begin{tabular}{llll}
+    \toprule
+    \verb|\textrm{...}| & \textrm{roman} & 
+    \verb|\textbf{...}| & \textbf{bold face} \\
+    \verb|\textsf{...}| & \textsf{sans serif} & 
+    \verb|\textit{...}| & \textit{italic} \\
+    \verb|\texttt{...}| & \texttt{typewriter} & 
+    \verb|\textsl{...}| & \textsl{slanted} \\
+    \\
+    \verb|\emph{...}|   & \emph{emphasized} & 
+    \verb|\underline{...}|  & \underline{underline} \\
+    \verb|\textsc{...}| & \textsc{Small Caps} & & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{字號命令}
+\label{tab:fontsize_command}
+\begin{tabular}{llll}
+    \toprule
+    & \multicolumn{3}{c}{正文字號} \\
+    \cmidrule(lr){2-4}
+    命令 & 10pt & 11pt & 12pt \\
+    \midrule
+    \verb|\tiny|         & 5pt  & 6pt  & 6pt \\
+    \verb|\scriptsize|   & 7pt  & 8pt  & 8pt \\
+    \verb|\footnotesize| & 8pt  & 9pt  & 10pt \\
+    \verb|\small|        & 9pt  & 10pt & 11pt \\
+    \verb|\normalsize|   & 10pt & 11pt & 12pt \\
+    \verb|\large|        & 12pt & 12pt & 14pt \\
+    \verb|\Large|        & 14pt & 14pt & 17pt \\
+    \verb|\LARGE|        & 17pt & 17pt & 20pt \\
+    \verb|\huge|         & 20pt & 20pt & 25pt \\
+    \verb|\Huge|         & 25pt & 25pt & 25pt \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{常用命令環境}
+\subsection{列表}
+
+\LaTeX~中有三種列表環境：\verb|itemize、enumerate、description|，它們的一般用法如下：
+
+\begin{demo}
+\begin{itemize}
+    \item C++
+    \item Java
+    \item HTML
+\end{itemize}
+\end{demo}
+
+\begin{demo}
+\begin{enumerate}
+    \item C++
+    \item Java
+    \item HTML
+\end{enumerate}
+\end{demo}
+
+\begin{demo}
+\begin{description}
+    \item{C++} 一種編程語言
+    \item{Java} 另一種編程語言
+    \item{HTML} 一種標記語言
+\end{description}
+\end{demo}
+
+\subsection{對齊}
+\LaTeX~中的段落預設兩端對齊（fully justified），我們也可以讓段落居左、居右或居中對齊。
+
+\begin{demo}
+\begin{flushleft}
+本段落\\
+居左
+\end{flushleft}
+\end{demo}
+
+\begin{demo}
+\begin{flushright}
+本段落\\
+居右
+\end{flushright}
+\end{demo}
+
+\begin{demo}
+\begin{center}
+本段落\\
+居中
+\end{center}
+\end{demo}
+
+\subsection{摘錄}
+\LaTeX~中有三種摘錄環境：\verb|quote、quotation、verse|。\verb|quote|~兩端都縮進，\verb|quotation|~在~\verb|quote|~的基礎上增加了首行縮進，\verb|verse|~比~\verb|quote|~多了第二行起的縮進。
+
+\begin{demo}
+正文
+\begin{quote}
+引文兩端都縮進。
+\end{quote}
+正文
+\end{demo}
+
+\begin{demo}
+正文
+\begin{quotation}
+引文兩端縮進，首行縮進。
+\end{quotation}
+正文
+\end{demo}
+
+\begin{demo}
+正文
+\begin{verse}
+引文兩端縮進，第二行起縮進。
+\end{verse}
+正文
+\end{demo}
+
+\subsection{原文照排}
+一般文檔中，命令和源代碼通常使用等寬字樣來表示，也就是原文照排。對此~\LaTeX~提供了~\verb|\verb|~命令（一般用於在正文中插入較短的命令）和~\verb|verbatim|~環境。後者有帶~\verb|*|~的版本用來標明空格。
+
+\begin{demo}
+正文中插入\verb|command|
+\begin{verbatim}
+printf("Hello, world!");
+\end{verbatim}
+\begin{verbatim*}
+printf("Hello, world!");
+\end{verbatim*}
+\end{demo}
+
+\subsection{交叉引用}
+我們常常需要引用文檔中~\verb|section、subsection、figure、table|~等對象的編號，這種功能叫作交叉引用（cross referencing）。
+
+\LaTeX~中可以用~\verb|\label{marker}|~命令來定義一個標記，標記名可以是任意字符串，但是在全文中須保持唯一。之後可以用~\verb|\ref{marker}|~命令來引用標記處章節或圖表的編號，用~\verb|\pageref{marker}|~來引用標記處的頁碼。
+
+\begin{demo}
+被引用處\label{sec}\\
+...\\
+第\pageref{sec}頁\ref{sec}節
+\end{demo}
+
+文檔中新增交叉引用後，第一次執行~\verb|latex|~或~\verb|pdflatex|~編譯命令時會得到類似下面的警告信息。因為第一次編譯只會掃瞄出有交叉引用的地方，第二次編譯才能得到正確結果。
+
+\begin{code}
+LaTeX Warning: There were undefined references.
+...
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-
+references right.
+\end{code}
+
+\subsection{腳註}
+腳註（footnote）的一般用法如下:
+\begin{demo}
+這裡是一段正文。\footnote{這裡是一段腳註。}
+\end{demo}
+
+\section{長度單位}
+\LaTeX~中的常用長度單位如\Fref{tab:unit}~所示。point~是個傳統印刷業採用的單位，而~big point~是~Adobe~推出~PS~時新定義的單位。em~是個相對單位，比如當前字體是~11pt~時，1em~就是~11pt。
+\begin{table}[htbp]
+\caption{常用長度單位}
+\label{tab:unit}
+\centering
+\begin{tabular}{llllll}
+    \toprule
+    in & 英吋 & pt & point, 1/72.27 in  & em & 當前字體中字母M的寬度 \\
+    cm & 釐米 & bp & big point, 1/72 in & ex & 當前字體中字母X的高度 \\
+    mm & 毫米 & pc & pica, 12 pt        & mu & math unit，1/18 em \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{盒子}
+\LaTeX~在排版時把每個對象（小到一個字母，大到一個段落）都視為一個矩形盒子（box），我們在~HTML~和~CSS~中也可以見到類似的模型。
+
+\subsection{mbox~和~fbox}
+
+\LaTeX~中最簡單的盒子是~\verb|\mbox|~和~\verb|\fbox|。前者把一組對象組合起來，後者在此基礎上加了個邊框。
+\begin{demo}
+\mbox{010 6278 5001}
+\fbox{010 6278 5001}
+\end{demo}
+
+\subsection{makebox~和~framebox}
+稍複雜的~\verb|\makebox|~和~\verb|\framebox|~提供了寬度和對齊方式控制選項。這裡用~l、r、s~分別代表居左、居右和分散對齊。
+\begin{demo}
+%語法：[寬度][對齊方式]{內容}
+\makebox[100pt][l]{居左}
+\framebox[100pt][r]{居右}
+\end{demo}
+
+\subsection{parbox~和~minipage}
+大一些的對象比如整個段落可以用~\verb|\parbox|~命令和~\verb|\minipage|~環境，兩者語法類似，也提供了對齊方式和寬度的選項。但是這裡的對齊方式是指與周圍內容的縱向關係，用~t、c、b~分別代表居頂、居中和居底對齊。
+
+\begin{demo}
+%語法：[對齊方式]{寬度}{內容}
+\parbox[c]{90pt}{錦瑟無端五十弦，\\一弦一柱思華年。}李商隱
+\end{demo}
+
+細心的讀者會發現~\verb|\parbox|~和~\verb|\minipage|~的選項排列順序和~\verb|\makebox|~和~\verb~\framebox|~的不一致，可能出自不同的作者。
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+
+

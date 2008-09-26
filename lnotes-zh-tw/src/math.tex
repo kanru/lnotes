@@ -1,0 +1,352 @@
+\chapter{數學}
+
+\begin{quotation}
+今有上禾三秉，中禾二秉，下禾一秉，實三十九斗；上禾二秉，中禾三秉，下禾一秉，實三十四斗；上禾一秉，中禾二秉，下禾三秉，實二十六斗。問上、中、下禾實一秉各幾何？
+\begin{gather*}
+\begin{split}
+    3x+2y+z &= 39 \\
+    2x+3y+z &= 34 \\
+    x+2y+3z &= 26 \\
+\end{split}
+\end{gather*}
+\begin{flushright}
+--- 《九章算術》
+\end{flushright}
+\end{quotation}
+
+%\begin{quotation}
+%鄴下諺曰：博士買驢，書券三紙，未有驢字。
+%\begin{flushright}
+%--- 顏之推《顏氏家訓‧勉學》
+%\end{flushright}
+%\end{quotation}
+
+為了使用~\AmS-\LaTeX~提供的數學功能，我們首先需要在文檔的序言部分加載~\verb|amsmath|~宏包，其詳細用法可參閱《amsmath User's Guide》\citep{AMS_2002}。更全面的數學內容排版可參閱~George Grätzer\footnote{匈牙利裔，加拿大~Manitoba~大學數學系教授。}的《More Math into \LaTeX, 4th Edition》\citep{Gratzer_2007}。
+%\begin{code}
+%\usepackage[options]{amsmath}
+%\end{code}
+
+\section{數學模式}
+\LaTeX~中的數學模式有兩種形式：inline~和~display。前者是指在正文插入行間數學公式，後者獨立排列，可以有或沒有編號。
+
+行間公式用一對~\verb|$...$|~來輸入，獨立公式用~\verb|equation|~或~\verb|equation*|~環境來輸入，有~\verb|*|~的版本不生成公式編號。
+
+前文提到~\verb|\fbox|~命令可以給文本內容加個方框，數學模式下也有類似的命令~\verb|\boxed|。
+
+\begin{demo}
+愛因斯坦的$E=mc^2$方程
+\begin{equation} 
+    E=mc^2 
+\end{equation}
+\[ E=mc^2 \]
+\[ \boxed{E=mc^2} \]
+\end{demo}
+
+\section{基本原素}
+\subsection{字母}
+
+英文字母在數學模式下可以直接輸入，希臘字母則需要用\Fref{tab:greek}~中的命令輸入，注意大寫希臘字母的命令首字母也是大寫。
+
+\begin{table}[htbp]
+\caption{希臘字母}
+\label{tab:greek}
+\centering
+\begin{tabular}{llllllll}
+    \toprule
+    $\alpha$      & \verb|\alpha|      & $\theta$    & \verb|\theta|    & 
+        $o$         & \verb|o|        & $\tau$     & \verb|\tau| \\
+    $\beta$       & \verb|\beta|       & $\vartheta$ & \verb|\vartheta| & 
+        $\pi$       & \verb|\pi|      & $\upsilon$ & \verb|\upsilon| \\
+    $\gamma$      & \verb|\gamma|      & $\iota$     & \verb|\iota|     & 
+        $\varpi$    & \verb|\varpi|   & $\phi$     & \verb|\phi| \\
+    $\delta$      & \verb|\delta|      & $\kappa$    & \verb|\kappa|    & 
+        $\rho$      & \verb|\rho|     & $\varphi$  & \verb|\varphi| \\
+    $\epsilon$    & \verb|\epsilon|    & $\lambda$   & \verb|\lambda|   & 
+        $\varrho$   & \verb|\varrho|  & $\chi$     & \verb|\chi| \\
+    $\varepsilon$ & \verb|\varepsilon| & $\mu$       & \verb|\mu|       & 
+        $\sigma$    & \verb|\sigma|   & $\psi$     & \verb|\psi| \\
+    $\zeta$       & \verb|\zeta|       & $\nu$       & \verb|\nu|       & 
+        $\varsigma$ & \verb|\varsigma|   & $\omega$   & \verb|\omega| \\
+    $\eta$        & \verb|\eta|        & $\xi$       & \verb|\xi|       & 
+        &                 &            & \\
+    $\Gamma$      & \verb|\Gamma|      & $\Lambda$   & \verb|\Lambda|   & 
+        $\Sigma$    & \verb|\Sigma|   & $\Psi$     & \verb|\Psi| \\
+    $\Delta$      & \verb|\Delta|      & $\Xi$       & \verb|\Xi|       & 
+        $\Upsilon$  & \verb|\Upsilon| & $\Omega$   & \verb|\Omega| \\
+    $\Theta$      & \verb|\Theta|      & $\Pi$       & \verb|\Pi|       & 
+        $\Phi$      & \verb|\Phi|     &            & \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{指數、下標、根號}
+指數或上標用~\verb|^|~表示，下標用~\verb|_|~表示，根號用~\verb|\sqrt|~表示。上下標如果多於一個字母或符號，需要用一對~\verb|{}|~括起來。
+\begin{demo}
+\[x_{ij}^2\quad \sqrt[2]{x}\]
+\end{demo}
+
+\subsection{分數}
+分數用~\verb|\frac|~命令表示，它會自動調整字號，比如在行間公式中小一點，在獨立公式則大一點。\verb|\dfrac|~命令把分數的字號顯式設置為獨立公式中的大小，\verb|\tfrac|~命令則把字號設為行間公式中的大小。
+\begin{demo}
+$\frac{1}{2} \dfrac{1}{2}$
+\[\frac{1}{2} \tfrac{1}{2}\]
+\end{demo}
+
+\subsection{運算符}
+有些小的運算符（operator）例如~\verb|+ - * /|~等可以直接輸入，另一些則需要特殊命令。完整的數學符號參見~Scott Pakin~的《The Comprehensive \LaTeX~ Symbol List》\citep{Pakin_2008}。
+\begin{code}
+\[\pm \times \div \cdot \cap \cup \geq \leq \neq \approx \equiv\]
+\end{code}
+
+\begin{out}
+\[\pm\quad \times\quad \div\quad \cdot\quad \cap\quad \cup\quad \geq\quad \leq\quad \neq\quad \approx\quad \equiv\]
+\end{out}
+
+和、積、極限、積分等大運算符用~\verb|\sum \prod \lim \int|~等表示。它們的上下標在行間公式中被壓縮，以適應行高。。
+
+\begin{code}
+$\sum_{i=1}^n i \prod_{i=1}^n \lim_{x\to0}x^2 \int_a^b x^2 dx\$
+\[\sum_{i=1}^n i \prod_{i=1}^n \lim_{x\to0}x^2 \int_a^b x^2 dx\]
+\end{code}
+
+\begin{out}
+$\sum_{i=1}^n i\quad \prod_{i=1}^n\ \lim_{x\to0}x^2\ \int_a^b x^2\mathrm{d}x$
+\[\sum_{i=1}^n i\quad \prod_{i=1}^n\ \lim_{x\to0}x^2\ \int_a^b x^2\mathrm{d}x\]
+\end{out}
+
+多重積分如果用多個~\verb|\int|~來輸入的話，積分號間距過寬。正確的方法是用~\verb|\iint \iiint \iiiint \idotsint|~等命令輸入。從下例中可以看出兩種方法的差異。
+
+\begin{out}
+\[\iint\quad \iiint\quad \iiiint\quad \idotsint\]
+\[\int\int\quad \int\int\int\quad \int\int\int\int\quad \int\dots\int\]
+\end{out}
+
+\subsection{分隔符}
+各種括號用~\verb|() [] \{\} \langle\rangle|~等命令表示，注意花括號通常用來輸入命令和環境的參數，所以在數學公式中它們前面要加~\verb|\|。因為~\LaTeX~中的~\verb+|和\|+~的應用過於隨意，~amsamth~宏包推薦用~\verb|\lvert\rvert|~和~\verb|\lVert\rVert|~取而代之。
+
+我們可以在上述分隔符前面加~\verb|\big \Big \bigg \Bigg|~等命令來調整大小。\LaTeX~原有的方法是在分隔符前面加~\verb|\left \right|~來自動調整大小，但是效果不佳，所以~amsmath~不推薦用這種方法。
+
+\begin{out}
+\[\Bigg(\bigg(\Big(\big((x+y)\big)\Big)\bigg)\Bigg)\quad 
+\Bigg[\bigg[\Big[\big[[x+y]\big]\Big]\bigg]\Bigg]\quad 
+\Bigg\{\bigg\{\Big\{\big\{\{x+y\}\big\}\Big\}\bigg\}\Bigg\}\]
+\[\Bigg\langle\bigg\langle\Big\langle\big\langle\langle x+y \rangle\big\rangle\Big\rangle\bigg\rangle\Bigg\rangle\quad
+\Bigg\lvert\bigg\lvert\Big\lvert\big\lvert\lvert x+y \rvert\big\rvert\Big\rvert\bigg\rvert\Bigg\rvert\quad
+\Bigg\lVert\bigg\lVert\Big\lVert\big\lVert\lVert x+y \rVert\big\rVert\Big\rVert\bigg\rVert\Bigg\rVert\]
+\end{out}
+
+\subsection{箭頭}
+\Fref{tab:arrow}~列出了部分箭頭的輸入方法。另外還有兩個命令生成的箭頭可以根據上下標自動調整長度。
+
+\begin{table}[htbp]
+\caption{箭頭}
+\label{tab:arrow}
+\centering
+\begin{tabular}{llll}
+    \toprule
+    $\leftarrow$       & \verb|\leftarrow|      & $\longleftarrow$       & \verb|\longleftarrow| \\
+    $\rightarrow$      & \verb|\rightarrow|     & $\longrightarrow$      & \verb|\longrightarrow| \\
+    $\leftrightarrow$  & \verb|\leftrightarrow| & $\longleftrightarrow$  & \verb|\longleftrightarrow| \\
+    $\Leftarrow$       & \verb|\Leftarrow|      & $\Longleftarrow$       & \verb|\Longleftarrow| \\
+    $\Rightarrow$      & \verb|\Rightarrow|     & $\Longrightarrow$      & \verb|\Longrightarrow| \\
+    $\Leftrightarrow$  & \verb|\Leftrightarrow| & $\Longleftrightarrow$  & \verb|\Longleftrightarrow| \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{demo}
+\[\xleftarrow{x+y+z}\quad
+\xrightarrow[x<y]{a*b*c}\]
+\end{demo}
+
+\subsection{標註}
+\Fref{tab:accent}~列出一些短的注音符號（accent），\Fref{tab:notation}~則列出一些長的標註符號。
+
+\begin{table}[htbp]
+\caption{數學注音符號}
+\label{tab:accent}
+\centering
+\begin{tabular}{llllllll}
+    \toprule
+    $\acute{x}$ & \verb|\acute{x}| & $\tilde{x}$   & \verb|\tilde{x}|   & $\mathring{x}$   & \verb|\mathring{x}|  \\
+    $\grave{x}$ & \verb|\grave{x}| & $\breve{x}$ & \verb|\breve{x}| & $\dot{x}$   & \verb|\dot{x}|    \\
+    $\bar{x}$  & \verb|\bar{x}|  & $\check{x}$ & \verb|\check{x}| & $\ddot{x}$  & \verb|\ddot{x}|  \\
+    $\vec{x}$ & \verb|\vec{x}| & $\hat{x}$   & \verb|\hat{x}|   & $\dddot{x}$ & \verb|\dddot{x}| \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\caption{長標註符號}
+\label{tab:notation}
+\centering
+\begin{tabular}{llll}
+    \toprule
+    $\overline{xxx}$        & \verb|\overline{xxx}|        & $\overleftrightarrow{xxx}$  & \verb|\overleftrightarrow{xxx}| \\
+    $\underline{xxx}$       & \verb|\underline{xxx}|       & $\underleftrightarrow{xxx}$ & \verb|\underleftrightarrow{xxx}| \\
+    $\overleftarrow{xxx}$   & \verb|\overleftarrow{xxx}|   & $\overbrace{xxx}$           & \verb|\overbrace{xxx}| \\
+    $\underleftarrow{xxx}$  & \verb|\underleftarrow{xxx}|  & $\underbrace{xxx}$          & \verb|\underbrace{xxx}| \\
+    $\overrightarrow{xxx}$  & \verb|\overrightarrow{xxx}|  & $\widetilde{xxx}$           & \verb|\widetilde{xxx}| \\
+    $\underrightarrow{xxx}$ & \verb|\underrightarrow{xxx}| & $\widehat{xxx}$             & \verb|\widehat{xxx}| \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{省略號}
+省略號用~\verb|\dots \cdots \vdots \ddots|~等命令表示，注意~\verb|\cdots|~和~\verb|\dots|~的差別。
+\begin{out}
+\[\dots\quad \cdots\quad \vdots\quad \ddots\]
+\end{out}
+
+\subsection{空白間距}
+在數學模式中，我們可以用\Fref{tab:quad}中的命令生成不同的間距，注意負間距命令~\verb|\!|~可以用來減小間距。
+
+\begin{table}[htbp]
+\caption{空白間距}
+\label{tab:quad}
+\centering
+\begin{tabular}{llll}
+    \toprule
+    \verb|\,| & 3/18 em & \verb|\quad|  & 1 em \\    
+    \verb|\:| & 4/18 em & \verb|\qquad| & 2 em \\    
+    \verb|\;| & 5/18 em & \verb|\!|     & -3/18 em \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{矩陣和行列式}
+數學模式下可以用~\verb|array|~環境來生成行列表。參數~\verb|{ccc}|~用於設置每列的對齊方式，\verb|l、c、r|~分別表示左中右；\verb|\\|~和~\verb|&|~用來分隔行和列。
+
+\begin{demo}
+\[\begin{array}{ccc}
+x_1 & x_2 & \dots \\
+x_3 & x_4 & \dots \\
+\vdots & \vdots & \ddots \\
+\end{array}\]
+\end{demo}
+
+\verb|amsmath|~有幾個類似的環境：\verb|pmatrix、bmatrix、Bmatrix、vmatrix|~和~
+\verb|Vmatrix|，它們和~\verb|array|~的主要區別是會在表兩端加上~$()\; []\; \{\}\; ||\; \|\|$~等分隔符，其次這些環境沒有列對齊方式參數。
+
+行間公式可以用~\verb|smallmatrix|~環境來生成排列緊密的小矩陣。
+
+\section{多行公式}
+有時一個公式太長一行放不下，或幾個公式需要寫成一組，這時我們就要用到~\verb|amsmath|~提供的幾個適合多行公式的環境。
+
+\subsection{長公式}
+對於多行不需要對齊的長公式，我們可以用~\verb|multiline|~環境。
+\begin{demo}
+\begin{multline}
+x=a+b+c+\\
+d+e+f+g
+\end{multline}
+\end{demo}
+
+需要對齊的長公式可以用~\verb|split|~環境，它本身不能單獨使用，因此也稱作次環境，必須包含在~\verb|equation|~或其它數學環境內。\verb|split|~環境用~\verb|\\|~和~\verb|&|~來分行和設置對齊位置。
+\begin{demo}
+\[ \begin{split}
+x=&a+b+c+\\
+  &d+e+f+g
+\end{split} \]
+\end{demo}
+
+\subsection{公式組}
+不需要對齊的公式組用~\verb|gather|環境，需要對齊的用~\verb|align|。
+\begin{demo}
+\begin{gather}
+a=b+c+d\\
+x=y+z
+\end{gather}
+\end{demo}
+
+\begin{demo}
+\begin{align}
+a&=b+c+d\\
+x&=y+z
+\end{align}
+\end{demo}
+
+\verb|multine、gather、align|~等環境都有帶~\verb|*|~的版本，它們不生成公式編號。
+
+有多種條件的公式組用~\verb|cases|~次環境。
+\begin{demo}
+\[ y=\begin{cases}
+-x & x<0\\
+x & x\geq0
+\end{cases} \]
+\end{demo}
+
+\section{定理和證明}
+\LaTeX~提供了一個~\verb|\newtheorem|~命令來定義定理之類的環境，其語法如下。
+\begin{code}
+\newtheorem{環境名}[編號延續]{顯示名}[編號層次]
+\end{code}
+
+在下例中，我們定義了四個環境：定義、定理、引理和推論，它們都在一個~\verb|section|~內編號，而引理和推論會延續定理的編號。
+\begin{code}
+\newtheorem{defination}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推論}
+\end{code}
+
+\newtheorem{defination}{定義}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推論}
+
+定義了上述環境之後，我們就可以像下面這樣使用它們。
+\begin{demo}
+\begin{defination}
+Java是一種跨平台的編程語言。
+\end{defination}
+\end{demo}
+
+\begin{demo}
+\begin{theorem}
+咖啡因會使人的大腦興奮。
+\end{theorem}
+\end{demo}
+
+\begin{demo}
+\begin{lemma}
+茶和咖啡都會使人興奮。
+\end{lemma}
+\end{demo}
+
+\begin{demo}
+\begin{corollary}
+晚上喝咖啡會導致失眠。
+\end{corollary}
+\end{demo}
+
+\verb|proof|環境可以用來輸入下面這樣的證明，它會在證明結尾輸入一個~QED~符號\footnote{拉丁語~quod erat demonstrandum~的縮寫。}。
+
+\begin{demo}
+\begin{proof}[命題``物質無限可分''的證明]
+一尺之棰，日取其半，萬世不竭。
+\end{proof}
+\end{demo}
+
+\section{數學字體}
+和文本模式類似，數學模式下可以用\Fref{tab:math_font}~中的命令選擇不同字體，其中有些字體需要加載~\verb|amsfonts|~宏包。
+
+\begin{table}[htbp]
+\caption{數學字體}
+\label{tab:math_font}
+\centering
+\begin{tabular}{ccccccc}
+    \toprule
+    預設 & \verb|\mathbf| & \verb|\mathit| & \verb|\mathsf| & 
+        \verb|\mathcal| & \verb|\mathbb| \\
+    XNZRC & $\mathbf{XNZRC}$ & $\mathit{XNZRC}$ & $\mathsf{XNZRC}$ & 
+        $\mathcal{XNZRC}$ & $\mathbb{XNZRC}$ \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+
+

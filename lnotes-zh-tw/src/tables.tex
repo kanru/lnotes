@@ -1,0 +1,346 @@
+\chapter{表格}
+\label{sec:tables}
+
+\section{簡單表格}
+\verb|tabular|~環境提供了最簡單的表格功能。它用~\verb|\hline|~命令代表橫線，\verb+|+~代表豎線，用~\verb|&|~來分欄。每個欄位的對齊方式可以用~l、c、r（左中右）來控制。
+\begin{code}
+\begin{tabular}{|l|c|r|}
+    \hline 
+    作業系統 & 發行版 & 編輯器 \\
+    \hline 
+    Windows & MikTeX & TeXnicCenter \\
+    \hline 
+    Unix/Linux & TeX Live & Emacs \\
+    \hline 
+    Mac OS & MacTeX & TeXShop \\
+    \hline 
+\end{tabular}
+\end{code}
+
+\begin{tabular}{|l|c|r|}
+    \hline 
+    作業系統 & 發行版 & 編輯器 \\
+    \hline 
+    Windows & MikTeX & TeXnicCenter \\
+    \hline 
+    Unix/Linux & TeX Live & Emacs \\
+    \hline 
+    Mac OS & MacTeX & TeXShop \\
+    \hline 
+\end{tabular}
+\ \\
+
+和針對插圖的~\verb|figure|~環境類似，\LaTeX~還有另一個針對錶格的浮動環境~\verb|table|。我們可以用它給上面的示例穿件馬甲，順便把表格簡化為科技文獻中常用的三線表。
+
+\begin{code}
+\begin{table}[htbp]
+\caption{浮動環境中的三線表}
+\label{tab:threesome}
+\centering
+\begin{tabular}{lll}
+    \hline 
+    作業系統 & 發行版 & 編輯器 \\
+    \hline 
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \hline 
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{浮動環境中的三線表}
+\label{tab:threesome}
+\centering
+\begin{tabular}{lll}
+    \hline 
+    作業系統 & 發行版 & 編輯器 \\
+    \hline 
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \hline 
+\end{tabular}
+\end{table}
+
+完美主義者可能覺得上面示例中的三條線一樣粗不夠美觀，這時可以使用~\verb|booktabs|~宏包\citep{Fear_2005}的幾個命令。
+
+\begin{code}
+\begin{table}[htbp]
+\caption{浮動環境中的三線表}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+\end{code}
+
+\begin{code}
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{\texttt{booktabs}~宏包的效果}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{表格寬度}
+有時我們需要控制某欄位寬度，可以將其對齊方式參數從~\verb|l、c、r|~改為~\verb|p{寬度}|~。
+\begin{code}
+\begin{table}[htbp]
+\caption{控制欄位寬度}
+\centering
+\begin{tabular}{p{100pt}p{100pt}p{100pt}}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{控制欄位寬度}
+\centering
+\begin{tabular}{p{100pt}p{100pt}p{100pt}}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+若想控制整個表格的寬度可以使用~\verb|tabularx|~宏包，\verb|X|~參數表示某欄可以折行。
+
+\begin{code}
+\begin{table}[htbp]
+\caption{控製表格寬度}
+\centering
+\begin{tabularx}{350pt}{lXlX}
+    \toprule
+    李白 & 平林漠漠煙如織，寒山一帶傷心碧。暝色入高樓，有人樓上愁。玉梯空佇立，宿鳥歸飛急。何處是歸程，長亭更短亭。& 
+    泰戈爾 & 夏天的飛鳥，飛到我的窗前唱歌，又飛去了。秋天的黃葉，它們沒有什麼可唱，只嘆息一聲，飛落在那裡。\\
+    \bottomrule
+\end{tabularx}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{控製表格寬度}
+\centering
+\begin{tabularx}{350pt}{lXlX}
+    \toprule
+    李白 & 平林漠漠煙如織，寒山一帶傷心碧。暝色入高樓，有人樓上愁。玉階空佇立，宿鳥歸飛急。何處是歸程，長亭更短亭。& 
+    泰戈爾 & 夏天的飛鳥，飛到我的窗前唱歌，又飛去了。秋天的黃葉，它們沒有什麼可唱，只嘆息一聲，飛落在那裡。\\
+    \bottomrule
+\end{tabularx}
+\end{table}
+
+\section{跨行、跨列表格}
+有時某欄需要橫跨幾列，我們可以使用~\verb|\multicolumn|~命令。它的前兩個參數指定橫跨列數和對齊方式。\verb|booktabs|~宏包的~\verb|\cmidrule|~命令用於橫跨幾列的橫線。
+\begin{code}
+\begin{table}[htbp]
+\caption{跨欄表格}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    & \multicolumn{2}{c}{常用工具} \\
+    \cmidrule{2-3}
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{跨欄表格}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    & \multicolumn{2}{c}{常用工具} \\
+    \cmidrule{2-3}
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+跨行表格需要使用~\verb|multirow|~宏包，\verb|\multirow|~命令的前兩個參數是豎跨的行數和寬度。
+\begin{code}
+\usepackage{multirow}
+...
+\begin{table}[htbp]
+\caption{跨行表格}
+\centering
+\begin{tabular}{lllc}
+\end{code}
+\begin{code}
+    \toprule
+    作業系統 & 發行版 & 編輯器 & 用戶體驗\\
+    \midrule
+    Windows & MikTeX & TeXnicCenter & 
+    \multirow{3}{*}{\centering 爽} \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{跨行表格}
+\centering
+\begin{tabular}{lllc}
+    \toprule
+    作業系統 & 發行版 & 編輯器 & 用戶體驗 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter & 
+    \multirow{3}{*}{\centering 爽} \\
+    Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{彩色表格}
+彩色表格需要使用~\verb|colortbl|~宏包\citep{Carlisle_2001}提供的一些命令：\verb|\columncolor|、~\verb|\rowcolor|、\verb|\cellcolor|~等。
+\begin{code}
+\usepackage{colortbl}
+...
+\begin{table}[htbp]
+\caption{彩色表格}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+\end{code}
+\begin{code}
+    \rowcolor[gray]{.8} Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{code}
+
+\begin{table}[htbp]
+\caption{彩色表格}
+\centering
+\begin{tabular}{lll}
+    \toprule
+    作業系統 & 發行版 & 編輯器 \\
+    \midrule
+    Windows & MikTeX & TeXnicCenter \\
+    \rowcolor[gray]{.8} Unix/Linux & TeX Live & Emacs \\
+    Mac OS & MacTeX & TeXShop \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{長表格}
+有時表格太長要跨頁，可以使用~\verb|longtable|~宏包\citep{Carlisle_2004}。\verb|\endfirsthead|、~\verb|\endhead|~命令用來定義首頁表頭和通用表頭，\verb|\endfoot|、\verb|\endlastfoot|~命令用來定義通用表尾和末頁表尾。
+\begin{code}
+\usepackage{longtable}
+...
+\begin{longtable}{ll}
+\caption{長表格} \\
+    \toprule
+    作者 & 作品 \\
+    \midrule
+    \endfirsthead
+    \midrule
+    作者 & 作品 \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{2}{r}{接下頁\dots} \\
+\end{code}
+\begin{code}
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    白居易 & 漢皇重色思傾國，\\
+    & 御宇多年求不得。\\
+    & 楊家有女初長成，\\ 
+    & 養在深閨人未識。\\
+    & 天生麗質難自棄，\\ 
+    & 一朝選在君王側。\\
+    & 回眸一笑百媚生，\\ 
+    & 六宮粉黛無顏色。\\
+    & 春寒賜浴華清池，\\ 
+    & 溫泉水滑洗凝脂。\\
+    & 侍兒扶起嬌無力，\\ 
+    & 始是新承恩澤時。\\
+    & 雲鬢花顏金步搖，\\ 
+    & 芙蓉帳暖度春宵。\\
+    & 春宵苦短日高起，\\ 
+    & 從此君王不早朝。\\
+\end{longtable}
+\end{code}
+
+\begin{longtable}{ll}
+\caption{長表格} \\
+    \toprule
+    作者 & 作品 \\
+    \midrule
+    \endfirsthead
+    \midrule
+    作者 & 作品 \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{2}{r}{接下頁\dots} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    白居易 & 漢皇重色思傾國，\\
+    & 御宇多年求不得。\\
+    & 楊家有女初長成，\\
+    & 養在深閨人未識。\\
+    & 天生麗質難自棄，\\
+    & 一朝選在君王側。\\
+    & 回眸一笑百媚生，\\
+    & 六宮粉黛無顏色。\\
+    & 春寒賜浴華清池，\\
+    & 溫泉水滑洗凝脂。\\
+    & 侍兒扶起嬌無力，\\
+    & 始是新承恩澤時。\\
+    & 雲鬢花顏金步搖，\\
+    & 芙蓉帳暖度春宵。\\
+    & 春宵苦短日高起，\\
+    & 從此君王不早朝。\\
+\end{longtable}
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+

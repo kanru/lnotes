@@ -1,0 +1,185 @@
+\chapter{字體}
+
+關於字體有三個重要概念：glyph、typeface、font。glyph~通常被翻譯為字形，也有翻譯為字體的；typeface~是一個書法和印刷領域的概念，它通常被翻譯為字體或書體；font~曾經和~typeface~混用，但現在一般用作電腦領域的概念，在中國大陸被翻譯為字體，在台灣被翻譯為字型。
+
+上述翻譯的混亂令人十分無奈，包老師決定在本文中把它們分別翻譯為字形、字樣、字體，以正視聽。
+
+字形是一個字符的具體圖形表現形式，一個字符可以有多個字形，比如漢字中的「{\CJKfamily{uming}強／强}」、「{\CJKfamily{uming}戶／户／戸}」；字樣是一組相同風格樣式的字形的集合，比如中文字樣有宋、仿、楷、黑、隸、篆等；一種字樣可以對應電腦上的幾種字體。
+
+\section{字樣}
+\label{sec:typeface}
+拉丁字母的字樣主要有三大類：Serif（Roman）、Sans Serif~和~Mono-space~（Typewriter）。Serif~的筆畫邊緣部分有些裝飾，類似於中文的宋體、仿宋、楷體、魏書等。Sans Serif~的筆畫則是平滑的，類似於中文的黑體。Sans~這個詞來源於法語，就是「沒有」的意思。Monospace~則是等寬字樣。
+
+每一類字樣都可以有加粗（bold）、斜體（italic）、傾斜（oblique）等修飾效果。Italic~通常對原字樣進行過重新設計，它修飾精細，多用於~Serif；~Oblique~也稱作~slanted，基本上是把正體傾斜，多用於~Sans Serif。通常~oblique~看起來比~italic~要寬一些。
+
+\Fref{tab:typeface}列出了幾種常見的字樣。
+
+\begin{table}[htbp]
+\caption{常見字樣}
+\label{tab:typeface}
+\centering
+\begin{tabular}{llll}
+    \toprule
+    作業系統 & Serif           & Sans Serif & Monospace \\
+    \midrule
+    Mac OS   & Times           & Helvetica  & Courier \\
+    Windows  & Times New Roman & Arial      & Courier New \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{字體格式}
+\label{sec:font}
+
+\subsection{點陣字體和向量字體}
+電腦上用的字體（font）按數據格式可以分為三大類：點陣字體（bitmap）、輪廓（outline）字體和筆畫（stroke-based）字體。
+
+點陣字體通過點陣來描述字形。早期的電腦受到容量和繪圖速度的限制，多採用點陣字體。點陣字體後來漸漸被輪廓字體所取代，但是很多小字號字體仍然使用它，因為這種情況下輪廓字體縮放太多會導致筆畫不清晰。
+
+輪廓字體又稱作向量字體，它通過一組直線段和曲線來描述字形。輪廓字體易於通過數學函數進行縮放等變換，形成平滑的輪廓。輪廓字體的主要缺陷在於它所採用的貝茲曲線（Bézier curves）在光柵（raster）設備（比如顯示器和打印機）上不能精確渲染，因而需要額外的補償處理比如字體微調（font hinting）。但是隨著電腦硬件的發展，人們一般不在意它比點陣字體多出的處理時間。
+
+筆畫字體其實也是輪廓字體，不過它描述的不是完整的字形，而是筆畫。它多用於東亞文字。
+
+\subsection{常見字體}
+
+常見的輪廓字體技術有：Type 1~和~Type 3、TrueType、OpenType、~\MF~等。
+
+Adobe~的~Type 1~和~Type 3~基於~PS，它們採用三次貝茲曲線。Type 1~支持微調，它使用一個簡化的~PS~子集；Type 3~不支持微調，但它可以使用全部~PS~功能，因此既可以包含輪廓字體也可以包含點陣字體信息。
+    
+1991~年，Apple~發佈了~TrueType，它採用二次貝茲曲線。二次曲線處理起來比三次曲線快，但是需要更多的點來描述。所以從~TrueType~到~Type 1的轉換是無損的，反之是有損的。1994~年，Apple~著手研究~TrueType~的下一代技術：TrueType GX，它後來演變為Apple Advanced Typography（AAT）。
+
+1996~年，微軟和~Adobe~聯合發佈了~OpenType。它比起~AAT~的優勢有：跨平台、開放和易於開發、支持更多的語言比如阿拉伯語。
+
+早在~1984~年~Knuth~就發佈了~\MF，它與~TrueType~和~OpenType的區別是，不直接描述字形輪廓，而描述生成輪廓的筆的軌跡。筆的形狀可以是橢圓形或多邊形，尺寸縮放自如，字形邊緣也柔和一些。兩種字體可以用同一個~\MF~文件，當然還有不同的參數。\MF~技術如此先進，卻沒有流行開來。對此~Knuth~解釋道，要求一位設計字體的藝術家掌握~60~個參數太變態了，那是用來折磨數學家的。
+
+Type 1~和~Type 3~把字體信息存儲在兩種文件裡：metrics~和~glyph~文件。metrics~文件有~AFM（Adobe font metrics）和~PFM（printer font metrics），glyph~文件有~PFA（printer font ASCII）和~PFB（printer font binary）。~\LaTeX~使用的~metrics~格式是~TFM（TeX Font Metrics）。
+
+TrueType~的文件後綴是~.ttf，OpenType~的是~.ttf~和~.otf。\MF~雖然用向量圖形來定義字形，實際輸出的卻是一種點陣格式：PK~（packed raster）。
+
+上述字體按技術的先進性，從高到低的排序為：OpenType、~TrueType、Type 1、Type 3、PK，我們應優先選用~OpenType~和~TrueType。
+
+\subsection{合縱連橫}
+Adobe~收取的~Type 1~專利許可費一度十分昂貴，窮人們只好用免費的~Type 3。為了打破這種壟斷，Apple~開發了~TrueType。1991~年~TrueType~發佈之後，Adobe隨即公開了~Type 1~的規範，~Type 1~字體從貴族墮落為平民，因而流行開來。
+
+1980~年代中後期，Adobe~的大部分盈利來自於~PS~解釋器的許可費。面對這種壟斷局面，微軟和~Apple~聯合了起來。微軟把買來的~PS~解釋器~TrueImage~授權給~Apple，Apple~則把~TrueType~授權給微軟。
+
+微軟得隆望蜀，又企圖獲得~AAT~的許可證，未遂。為了打破~Apple~的壟斷，微軟聯合~Adobe~在1996年發佈了~OpenType。Adobe~在2002~年末將其字體庫全面轉向~OpenType。
+
+上面這幾齣精彩好戲充分展示了商場上的勾心鬥角、爾虞我詐，沒有永恆的夥伴，只有永恆的利益。但它同時也告訴我們，市場競爭中受益的還是廣大的消費者。
+
+\section{字體應用}
+
+PS~支持~Type 1~和~Type 3，而~PDF~除了這兩種還支持~TrueType~和~OpenType。\verb|latex|、DVI瀏覽器、各種~driver~分別採用不同的字體技術。
+
+\subsection{DVI}
+\verb|latex|~編譯~\LaTeX~源文件生成~DVI~時只需要\verb|.tfm|~文件，因為~DVI~並不包含字形信息，而只包含對字體的引用。DVI~瀏覽器顯示~DVI~時一般使用~PK，它在系統中查找相應的~\verb|.pk|~文件，若找不到就調用~\MF~在後台自動生成。
+
+\subsection{dvips}
+預設情況下，\verb|dvips|~也會查找~\verb|.pk|~，或調用~\MF~自動生成；然後把~PK~轉換成包含點陣字體的~Type 3，它的參數~\verb|-D|~可以用來控制該點陣字體的分辨率。用~\verb|ps2pdf|~處理含~Type 3~的~PS~時，輸出的自然是含~Type 3~的~PDF。
+
+GSview~在低分辨率下可以很好地渲染~Type 3，Adobe Reader~或~Acrobat~卻不能，因為它們使用的~Adobe Type Manager~不支持包含完整~PS~的~Type 3。含~Type 3~的~PDF~看起來會有些模糊，所以應儘量避免使用。
+
+\verb|dvips|~的另一個參數~\verb|-Ppdf|~把~Type 1~嵌入生成的~PS，這樣再~\verb|ps2pdf|~就能生成含~Type 1~的~PDF。
+
+\verb|dvips|~不支持真正的（native）TrueType，用戶只能把~TrueType~先轉成~PK~或~Type 1，這樣繞了個彎效果總會打些折扣。
+
+\verb|dvips|~的字體詳細使用方法可查閱其手冊\citep{Rokicki_2005}第~6~章，此處不贅述。
+
+\subsection{dvipdfm(x)}
+\verb|dvipdfm|~支持~PK~和~Type 1，它可以用一個~\verb|t1fonts.map|~文件建立~PK~文件和~Type 1~文件之間的映射，這樣生成的~PDF~用的就是~Type 1。\verb|dvipdfm|~也不支持真正的~TrueType。
+
+\verb|dvipdfmx|~通過正確的設置可以使用真正的~TrueType，它對中日韓等東亞文字的支持也較好，所以它對我們來說是~Driver~的首選。
+
+\section{TrueType~字體安裝配置}
+CJK~自帶的~UTF-8~編碼字體~gbsn~和~gkai只包含~GB2312~字符集，而~CTeX~只提供~GBK~編碼字體，因此中文用戶通常需要自己安裝配置~UTF-8~編碼的~TrueType~字體。
+
+在使用~TrueType~之前，用戶通常需要作以下準備工作：
+\begin{enumerate}
+    \item 用轉換程序~\verb|ttf2tfm|~生成~TFM。
+    \item 配置字體定義文件~\verb|.fd|。
+    \item 配置~\verb|ttf2pk|~，因為~DVI~瀏覽器和~\verb|dvips|~都會自動調用~\verb|ttf2pk|~來生成~PK。
+    \item 配置~\verb|dvipdfmx|。
+\end{enumerate}
+
+\subsection{目錄和文件}
+通常每個發行包都會參照~TDS~建立自己的目錄系統，把各種文件發在固定的位置。比如~MiKTeX~頂層目錄如下，在本節後面的示例中我們將使用這些目錄的縮寫。
+\begin{code}
+Install: D:\edit\MiKTeX 2.7
+UserData: C:\Documents and Settings\Alpha\Local Settings\
+    Application Data\MiKTeX\2.7
+UserConfig: C:\Documents and Settings\Alpha\
+    Application Data\MiKTeX\2.7
+\end{code}
+
+目錄多了有個缺點，文件不知道放在哪裡好。MiKTeX~中有的配置文件居然在四個目錄下各有一份，實在是令人髮指。幸好我們可以用下面的命令檢查配置文件的具體名字和路徑。
+
+\begin{code}
+initexmf --edit-config-file=ttf2pk
+\end{code}
+
+\subsection{ttf2tfm}
+比如我們想把~\verb|SimSun18030.ttc|（18030~字符集的新宋體）轉換為~UTF8~編碼的字體文件，我們需要執行以下步驟。
+
+\begin{enumerate}
+    \item 把需要的~\verb|.ttf|~文件複製到~\verb|UserData/fonts/truetype/chinese/|。
+    \item 用下面的命令生成\verb|.tfm|~和~\verb|.enc|~文件。
+    \item 把~\verb|*.tfm|~複製到~\verb|UserData/fonts/tfm/chinese/utf8song/|。
+    \item 把~\verb|*.enc|~複製到~\verb|UserData/fonts/enc/chinese/utf8song/|。
+\end{enumerate}
+
+\begin{code}
+ttf2tfm SimSun18030.ttc -q -w utf8song@Unicode@
+\end{code}
+
+\subsection{字體定義文件}
+字體定義文件將字體引用名和實際的字體文件聯繫起來，比如我們在~\verb|CJK|~環境中引用~\verb|usong|~時，系統將會找到並使用~\verb|utf8song*.tfm|。
+
+\begin{code}
+%UserData\tex\latex\CJK\UTF8\C70usong.fd
+\ProvidesFile{c70usong.fd}
+%character set: GB18030
+%font encoding: Unicode
+\DeclareFontFamily{C70}{usong}{\hyphenchar \font\m@ne}
+\DeclareFontShape{C70}{usong}{m}{n}{<-> CJK * utf8song}{}
+\DeclareFontShape{C70}{usong}{m}{it}{<-> CJK * utf8song}{}
+\DeclareFontShape{C70}{usong}{bx}{n}{<-> CJKb * utf8song}{
+    \CJKbold}
+\endinput
+\end{code}
+
+\subsection{配置~\texttt{ttf2pk}}
+MiKTeX~中~\verb|ttf2pk|~的配置文件是~\verb|ttf2pk.ini|~，在其它的發行包中可能是~\verb|ttf2pk.cfg|。
+
+\verb|ttf2pk.ini|~中有一個~\verb|.map|~文件列表，後者定義了~TrueType~應該按編碼轉為~PK~等信息。
+
+比如下面這個文件列表會讓~\verb|ttf2pk|~讀取~\verb|foo.map|~和~\verb|bar.map|。
+
+\begin{code}
+map foo.map
+map bar.map
+\end{code}
+
+如果係統找不到~\verb|ttf2pk.ini|，它會預設使用~\verb|ttfonts.map|。
+\begin{code}
+%UserData\ttf2tfm\base\ttfonts.map
+utf8song@Unicode@ SimSun18030.ttc
+\end{code}
+
+\subsection{配置~\texttt{dvipdfmx}}
+配置~\verb|dvipdfmx|~是為了讓~PDF~正確地嵌入~TrueType，否則生成的文件中的內容不能複製、黏貼。
+
+\begin{code}
+%UserConfig\dvipdfm\config\dvipdfmx.cfg
+f cid-x.map
+\end{code}
+
+\begin{code}
+%UserData\dvipdfm\config\cid-x.map
+utf8song@Unicode@ unicode SimSun18030.ttc
+\end{code}
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+
+

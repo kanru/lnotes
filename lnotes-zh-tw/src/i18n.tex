@@ -1,0 +1,74 @@
+\chapter{中文}
+
+\section{字符集和編碼}
+\label{sec:encoding}
+
+眾所周知電腦內部採用二進制編碼，因為它易於用電子電路實現。所有字符（包括字母、數字、符號、控制碼等）在電腦內部都是用二進製表示的，字符集（Character Set）的二進制編碼被稱為字符編碼（Character Encoding），有時人們也會混用這兩個術語。
+
+1963~年發佈的~American Standard Code for Information Interchange（~ASCII）是最早出現的字符編碼，它用~7~位（bit）表示了~$2^7=128$個字符，只能勉強覆蓋英文字符。
+
+美國人發明了電腦，英語被優先考慮是很自然的事情。隨著電腦技術的傳播，人們呼籲把字符編碼擴充到~8~位也就是一個字節（byte），於是國際標準化組織（International Organization for Standardization，ISO）推出了~ISO 8859。$2^8=256$個字符顯然也不能滿足需要，所以~8859~被分為十幾個部分，從~8859-1（西歐語言）、8859-2（中歐語言），直到~8859-16（東南歐語言），覆蓋了大部分使用拉丁字母的語言文字。
+
+在~ISO~標準完全定型之前，IBM~就有一系列自己的字符編碼，他們稱之為代碼頁（Code Page），其中著名的有~1981~年就被用於~IBM PC~的~437（擴展~ASCII）、850（西歐語言）、852（東歐語言）。IBM~代碼頁通常被用於控制台（Console）環境，也就是~MS-DOS~或~Unix Shell~那樣的命令行環境。
+
+微軟將~IBM~代碼頁稱為~OEM~代碼頁，自己定義的稱為~ANSI~代碼頁，後者中著名的有1252（西歐語言）、1250（東歐語言）、936（GBK~簡體中文）、950（Big5~繁體中文）、932（SJIS~日文）、949（EUC-KR~韓文）等。
+
+1981~年，中國大陸推出了第一個自己的字符集標準~GB2312，它是一個~$94*94$~的表，包括~7445~個字符（含~6763~個漢字）。GB2312~通常採用雙字節的EUC-CN編碼，所以後者也常常被稱為~GB2312~編碼；其實~GB2312~還有另一種編碼方式~HZ，只是不常用。GB2312~不包含朱鎔基的「鎔」字，政府、新聞、出版、印刷等行業和部門在使用中感到十分不便，於是它在~1993~年被擴展為~GBK，後者包括~21886~個字符（含~21003~個漢字），沒有形成正式標準。2000~年發佈的~GB18030~包含~70244~個字符（含~27533~個漢字），採用四字節編碼。GB18030~之前還出現過一個~GB13000，沒有形成氣候。
+
+1990~年ISO~推出了通用字符集（Universal Character Set，UCS），即~ISO 10646，意圖一統江湖。它有兩種編碼：雙字節的~UCS-2~和四字節的~UCS-4。
+
+ISO~之外還有個希望一統江湖的組織：統一碼聯盟（The Unicode Consortium），它於~1991~年推出了~Unicode 1.0。後來兩家組織意識到沒必要做重複工作，於是開始合併雙方的成果，攜手奔小康。從~Unicode 2.0~開始，Unicode~採用了與~ISO 10646-1~相同的編碼。
+
+Unicode~主要有三種編碼：UTF-8、UTF-16、UTF-32。UTF-8~使用一至四個~8~位編碼。互聯網工程任務組（Internet Engineering Task Force，~IETF）要求所有網絡協議都支持~UTF-8，互聯網電子郵件聯盟（Internet Mail Consortium，IMC）也建議所有電子郵件軟件都支持~UTF-8，所以它已成為互聯網上的事實標準。UTF-16~用一或兩個~16~位編碼，基本上是~UCS-2~的超集，和~ASCII~不兼容。UTF-32~用一個~32~位編碼，它是~UCS-4~的一個子集。
+
+\section{中文解決方案}
+\TeX~是基於單字節編碼的，因為~Knuth~當初開發~\TeX~時沒考慮那麼遠，也沒有現成的標準可以借鑑。
+
+\LaTeX~對中文的支持主要有兩種方法：張林波\footnote{中科院計算數學所某實驗室主任。}開發的~\href{ftp://ftp.cc.ac.cn/pub/cct/}{CCT}~和~Werner Lemberg\footnote{1968~年生於奧地利，從維也納音樂學院獲得作曲、指揮、鋼琴、樂團管理、歌手教練等五個專業文憑，後自學中文和數學。曾任職於奧地利和德國多家劇院和樂團，現任德國科布倫茨某劇院指揮。}開發的~CJK~宏包。早期~CCT~比較流行，新的~CCT~也可以和~CJK~配合使用，網上可以找到的最後更新是~2003~年的。CJK~是當前主流，它不僅支持中日韓等東亞文字，還支持幾十種其他不同語言的多種編碼。
+
+支持簡體中文的~\LaTeX~發行版有吳凌雲\footnote{中科院應用數學所研究員。}的~CTeX~和李樹鈞\footnote{德國哈根函授大學研究員。}的~ChinaTeX，繁體中文的有吳聰敏\footnote{台灣大學電機系學士，美國羅徹斯特大學經濟學博士，現任台灣大學經濟系教授。}、吳聰慧兄弟的~cwTeX~和蔡奇偉\footnote{美國猶他大學計算機博士，現任台灣靜宜大學資訊工程系教授。}的~PUTeX。後面兩個台灣的發行版包老師不熟悉，前面兩個大陸的發行版都包含~MikTeX、CCT、CJK、WinEdt~等。
+
+\section{CJK的使用}
+CJK~的作者寫的使用說明比較凌亂和晦澀，讀者可以參閱李果正的《我的CJK》\citep{Lee_2004a}。
+
+CJK~有兩個基本宏包：\verb|CJK|~和~\verb|CJKutf8|，後者面向~UTF-8~編碼。CJK~環境的一般使用方法如下：
+
+\begin{code}
+\usepackage{CJK(utf8)}
+...
+\begin{document}
+\begin{CJK}{<encoding>}{<family>}
+...
+\end{CJK}
+\end{document}
+\end{code}
+
+簡體中文常用編碼是~GBK~和~UTF8~。family~是指宋體、楷體、隸書等，具體引用要看電腦上安裝了什麼字體。麻煩的是~GBK~和~UTF8~字體不通用，也就是說每種編碼需要自己的字體。CJK~自帶的~UTF8~簡體字體有~gbsn（宋體）和~gkai（楷體）。CTeX~提供的~GBK~字體有~song（宋體）、fs（仿宋）、kai（楷體）、hei（黑體）、li（隸書）、~you（幼圓）等。
+
+注意使用~\verb|CJKutf8|~宏包時，\verb|CJK|~環境的編碼最好是~UTF8，否則可能遭遇不測。
+
+下面是一個簡單的~GBK~示例和一個~UTF8~示例，注意用編輯器保存時要選則相應的編碼格式，比如前者用~ANSI，後者用~UTF-8。
+\begin{code}
+\documentclass{article}
+\usepackage{CJK}
+\begin{document}
+\begin{CJK}{GBK}{song}
+這是一個CJK例子，使用了GBK編碼和song字體。
+\end{CJK}
+\end{document}
+\end{code}
+
+\begin{code}
+\documentclass{article}
+\usepackage{CJKutf8}
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+這是一個CJK例子，使用了UTF-8編碼和gbsn字體。
+\end{CJK}
+\end{document}
+\end{code}
+
+\bibliographystyle{unsrtnat}
+\bibliography{reading}
+\newpage
+

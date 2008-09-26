@@ -1,0 +1,28 @@
+原文鏈接：http://www.dralpha.com/chs/tech/lnotes.pdf
+
+感謝各位同學的幫助和支持，群眾的眼睛是賊亮的:)
+
+無以為報，只好為每位同學的意見增加一個版本號。
+
+v1.17 2008/06/02
+- 序中DreamWeaver更正為Dreamweaver，第4頁RedHat更正為Red Hat，Unbuntu更正為Ubuntu；第2頁和跋中的象字更正為像；33頁Shakespear更正為Shakespeare；80頁的編字更正為遍。感謝hkkhhk。
+- 第二章中對齊方式術語統一改為居左、居中、居右、居頂、居底；90頁表8.1中的Times Roman更正為Times；跋中揮手改為揮衣袖，家裡有本徐志摩詩集，基本沒看過。感謝yakun@smth.org。
+- 跋加到了目錄中，以前漏掉了一個\backmatter。
+- 43頁MetaPost版本號更新為1.005。感謝Xubuntu@smth.org。
+- 去掉了58頁多餘的一個句號。感謝tex@smth.org。
+- 去掉了27頁表3.3中重複的\ddot；28頁兩處分割改為分隔；補上了29頁漏掉的對齊兩字；42頁gnulot更正為gnuplot。再次感謝IMB@smth.org。
+- 關於披閱和批閱，當代多用批閱，但是我手頭的《紅樓夢》庚辰本和程乙本用的都是披閱，故不更改。感謝yyzz11@smth.org。
+- 插圖和字體兩章中Bezier的翻譯更正為貝塞爾。感謝careworn@smth.org。
+- 第二章和第六章中cross-reference的翻譯改為交叉引用；20頁小節標題和23頁腳註中英文單詞之間加入空格；43頁MetaPost版本號更新為1.004；更正了80頁圖6.2的標題；跋中採用了XeTeX和LuaTeX的logo。感謝LittleLeo@smth.org。
+- 86頁腳註中張林波的單位更正為計算數學所。感謝yli@smth.org。
+- 更正了78頁圖6.1的標題。感謝meteorrain@smth.org。
+- 去掉了94頁多餘的\verb。感謝snoopyzhao@smth.org。
+- 24頁\sigma中後一個更正為\varsigma；87頁一腳註加了句號。感謝primenumber@smth.org。
+- 更正了9頁腳註中Fuchs的名字；11頁去掉一個重複的「用」字。感謝IMB@smth.org。
+- 去掉了35頁\latex的反斜槓。感謝PiscesGold@smth.org。
+- 去掉了c70usong.fd中utf8hei的\CJKbold，黑體原本不該再加粗。感謝PaladinHL@smth.org。
+
+v1.0 2008/05/15
+- 大約花了半月。
+- 感謝jjgod@smth.org的「kpsewhich cid-x.map」。
+- 感謝Langpku@smth.org的「initexmf --edit-config-file=dvipdfmx」。

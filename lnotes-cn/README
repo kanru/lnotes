@@ -1,0 +1,20 @@
+LaTeX Notes
+
+This Chinese document is an introduction to TeX/LaTeX. It covers basic text typesetting, math, graphics, table, Chinese language & fonts, and some miscellaneous features (hyperlink, long document, bibliography, index, page layout).
+
+This package contains six files: 
+readme.txt
+history.txt
+license.txt
+lnotes.dvi
+lnotes.pdf
+src.zip
+
+The source files are encoded in UTF-8.
+
+This readme is in English because CTAN websites support only ASCII readmes.
+
+Any comments are welcome. I could be accessed at TeX board of smth.org or by email.
+
+Alpha Huang
+huang.xingang@gmail.com
